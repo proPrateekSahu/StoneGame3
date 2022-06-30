@@ -1,0 +1,31 @@
+class Solution {
+public:
+     // const int N=1e5+10;
+     int dp[100010];
+    int help(vector<int>& v,int j){
+        if(v.size()==j)return 0;
+        if(dp[j]!=-1)return dp[j];
+        int ans=INT_MIN;
+        ans=max(ans,v[j]-help(v,j+1));
+        // dp[j]=ans;
+        if(j+1<v.size())
+            {ans=max(ans,v[j]+v[j+1]-help(v,j+2));
+            // dp[j+1]=ans;
+            }
+        if(j+2<v.size())
+            {ans=max(ans,v[j]+v[j+1]+v[j+2]-help(v,j+3));
+            // dp[j+2]=ans;
+            }
+        return dp[j]=ans;
+    }
+    
+    
+    string stoneGameIII(vector<int>& stoneValue) {
+        memset(dp,-1,sizeof(dp));
+
+        int Alis=help(stoneValue,0);
+        return Alis>0?"Alice":Alis==0?"Tie":"Bob";
+        
+        
+    }
+};
